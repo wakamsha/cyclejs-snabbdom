@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable as O} from 'rxjs';
-import {div, makeDOMDriver, VNode, ul, li, a, img} from '@cycle/dom';
+import {div, makeDOMDriver, ul, li, a, img} from '@cycle/dom';
 import {StyleModule, ClassModule, PropsModule, AttrsModule} from '@cycle/dom/lib/modules';
 import {run} from '@cycle/rxjs-run';
-import {DOMSource} from '@cycle/dom/rxjs-typings';
+import {AnimationModule} from './modules/AnimationModule';
+import {Sources, Sinks} from '../../../../declares/interface';
 
 @Component({
     template: `
@@ -59,7 +60,7 @@ export class AnimationModuleComponent implements OnInit {
                 ])
             });
 
-            return {
+            return <Sinks>{
                 DOM: vdom$
             };
         }
@@ -71,94 +72,11 @@ export class AnimationModuleComponent implements OnInit {
                     StyleModule,
                     ClassModule,
                     AttrsModule,
-                    Modules.AnimationModule
+                    AnimationModule
                 ]
             })
         };
 
         run(main, drivers);
     }
-}
-
-type Sources = {
-    DOM: DOMSource;
-}
-
-type Sinks = {
-    DOM: O<VNode>;
-}
-
-namespace Modules {
-    type ModuleNode = {
-        elm: HTMLElement;
-        data: {
-            animations: {
-                enter: boolean;
-                leave: boolean;
-            }
-        }
-    } & VNode;
-
-    let created: ModuleNode[] = [];
-
-    /**
-     * 変数を初期化
-     */
-    function pre() {
-        created = [];
-    }
-
-    /**
-     * 表示アニメーションを適用する
-     * @param _
-     * @param vnode
-     */
-    function create(_: ModuleNode, vnode: ModuleNode) {
-        if (!vnode.data.animations) return;
-        vnode.elm.classList.add('animation');
-        vnode.elm.classList.add('animation--active');
-        if (vnode.data.animations.enter) {
-            vnode.elm.classList.add('animation--enter');
-        }
-        created.push(vnode);
-    }
-
-    /**
-     * 要素が更新される時 ( ※ 使用しない )
-     */
-    function update(_: ModuleNode, vnode: ModuleNode) {
-        if (!vnode.data.animations) return;
-    }
-
-    /**
-     * 要素が直接もしくは間接的に削除される時 ( ※ 使用しない )
-     * @param vnode
-     */
-    function destroy(vnode: ModuleNode) {
-        if (!vnode.data.animations) return;
-    }
-
-    /**
-     * 非表示アニメーションを適用して削除
-     * @param vnode
-     * @param fn
-     */
-    function remove(vnode: ModuleNode, fn: () => void) {
-        vnode.elm.classList.add('animation--leave');
-        setTimeout(() => fn(), 300);
-    }
-
-    /**
-     * パッチプロセス終了後の後始末をする
-     */
-    function post() {
-        created.forEach(vnode => {
-            if (vnode.data.animations.enter) {
-                setTimeout(() => vnode.elm.classList.remove('animation--enter'), 300);
-            }
-        });
-        created = [];
-    }
-
-    export const AnimationModule = {pre, create, update, destroy, remove, post};
 }
