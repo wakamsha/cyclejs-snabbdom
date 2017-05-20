@@ -1,0 +1,22 @@
+.animation
+    $duration = .2s
+    transition transform $duration ease-in-out, opacity $duration
+    transform none
+    opacity 1
+
+    &--enter
+        transform none
+
+    &--enter, &--leave
+        opacity 0
+
+    &--leave
+        transition transform $duration ease-in-out, opacity $duration ease-in-out
+
+    &--active
+        &^[0]--enter
+            transform translate3d(30px, 0, 0)
+            position absolute
+        &^[0]--leave
+            transform translate3d(30px, 0, 0)
+

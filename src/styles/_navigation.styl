@@ -1,0 +1,84 @@
+@import "_functions.styl"
+
+.navigation
+  $selected-color = #52edc7
+  $collapsed-size = 24px
+
+  background rgba(0, 0, 0, .9)
+  padding gutter(2)
+  width 20rem
+  overflow hidden
+  position absolute
+  right gutter(2)
+  top gutter(2) + $navbar-height
+  z-index 10
+  max-height 100vh
+  transition width $duration-scene, max-height $duration-scene
+
+  &--collapsed
+    width $collapsed-size
+    max-height $collapsed-size
+    padding 0
+
+    .navigation__section
+      visibility hidden
+
+  &__inner
+    overflow auto
+    max-height 580px
+
+  &__caption
+    $caption-color = #a3a3a3
+    margin-top gutter(3)
+    color $caption-color
+    font-size 14px
+    padding-bottom 5px
+    border-bottom 2px solid $caption-color
+
+  &__list
+    list-style none
+    padding 0
+    margin 0
+
+  &__list-item
+    color white
+    cursor pointer
+    line-height 1.8em
+    > a
+      color inherit
+      display block
+      &:after
+        content ''
+        display inline-block
+        width 0
+        height 2px
+        margin-left 3px
+        background white
+        border-radius 999em
+        transition width $duration-hover
+      &:hover,
+      &:active
+        text-decoration none
+        &:after
+          width 3rem
+
+    &--selected
+      color $selected-color
+      text-shadow: 0 0 3px $selected-color
+      > a
+        &:after
+          width 3rem
+          background $selected-color
+
+  &__toggle
+    background none
+    border none
+    position absolute
+    top 0
+    right 0
+    color white;
+    outline none
+    transition $duration-active
+
+    &--active
+      transform rotate3d(0, 0, 1, 90deg)
