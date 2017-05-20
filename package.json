@@ -27,11 +27,18 @@
     "browser-sync": "^2.18.11",
     "browserify": "^14.3.0",
     "connect-modrewrite": "^0.10.1",
+    "gulp": "^3.9.1",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-pug": "^3.3.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-stylus": "^2.6.0",
     "pug": "^2.0.0-rc.1",
     "pug-cli": "^1.0.0-alpha6",
     "stylus": "^0.54.5",
     "tsify": "^3.0.1",
     "typescript": "^2.3.2",
+    "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.9.0"
   }
 }
