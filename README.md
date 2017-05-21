@@ -1,6 +1,6 @@
 # cyclejs-snabbdom
 
-[カスタム Module を自作して『Snabbdom』を使いこなす ( 実践編 ) - Cycle.js を学ぼう #7 – NET BIZ DIV. TECH BLOG](https://tech.recruit-mp.co.jp/front-end/post-12253/) にて紹介しているサンプルコードです。
+[カスタム Module を自作して『Snabbdom』を機能拡張する - Cycle.js を学ぼう #7 – NET BIZ DIV. TECH BLOG](https://tech.recruit-mp.co.jp/front-end/post-12253/) にて紹介しているサンプルコードです。
 
 ### AnimationModule
 
